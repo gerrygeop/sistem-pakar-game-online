@@ -13,6 +13,13 @@ class AdminModel {
         $this->db = new Database;
     }
 
+    public function getAllRiwayat()
+    {
+        $query = "SELECT * FROM ". $this->tbl_hasil;
+        $this->db->query($query);
+        return $this->db->resultSet();
+    }
+
     public function detailRiwayat($nim, $record)
     {
         $query = "SELECT * FROM ". $this->tbl_hasil ." WHERE nim=:nim AND record=:record";
@@ -66,7 +73,6 @@ class AdminModel {
     protected function getNilaiHByTingkatanAndRecord($id_solusi_string, $nim, $record)
     {
         $id_solusi = intval( $id_solusi_string );
-        // $nim = intval( $nim );
 
         $query = "SELECT H FROM `". $this->tbl_gejala ."` 
         JOIN `". $this->tbl_responden ."` ON ". $this->tbl_gejala .".id_gejala = ". $this->tbl_responden .".id_gejala WHERE ". $this->tbl_responden .".nim=:nim AND ". $this->tbl_responden .".record=:record AND tingkatan=:id_solusi";

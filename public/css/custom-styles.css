@@ -10,12 +10,13 @@
   white-space: nowrap !important;
   text-overflow: ellipsis !important;
 }
-.bg-green {
-  background-color: #48bb78;
-}
 
 .img-custom {
   max-width: 300px;
+}
+
+.bg-orange {
+  background-color: #ff8906;
 }
 
 @media (min-width: 578px) {

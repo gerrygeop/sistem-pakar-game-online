@@ -146,8 +146,6 @@ class RespondenModel {
     {
         $date = new DateTime();
         $date = $date->format('Y-m-d H:i:s');
-        // $random = substr(md5(rand()), 0, 5);
-        // die($date.'-'.$random);
 
         $is_nim_exists = $this->checkUserTableHasil();
         if ($is_nim_exists) {
@@ -158,8 +156,8 @@ class RespondenModel {
             $record = 1;
         }
 
-        $nilai_yang_sama = $this->cekNilaiAkhirJikaAdaYangSama($nilaiH);
-        if ($nilai_yang_sama) return;
+        // $nilai_yang_sama = $this->cekNilaiAkhirJikaAdaYangSama($nilaiH);
+        // if ($nilai_yang_sama) return;
 
         $id_solusi = $this->dapatkanLevelGejala($nilaiH, $solusi);
 
@@ -235,13 +233,6 @@ class RespondenModel {
         return $this->db->rowCount();
     }
 
-    public function getAllRiwayat()
-    {
-        $query = "SELECT * FROM ". $this->tbl_hasil;
-        $this->db->query($query);
-        return $this->db->resultSet();
-    }
-
     public function getRiwayat()
     {
         $nim = intval( $_SESSION['nim'] );
@@ -265,20 +256,23 @@ class RespondenModel {
     public function detailRiwayatPerhitungan($record)
     {
         $solusi = $this->getSolusi();
+        $x = 1;
         foreach ($solusi as $key_solusi => $value_solusi) {
 
             $nilai_H = $this->getNilaiHByTingkatanAndRecord($value_solusi['id_solusi'], $record);
             foreach ($nilai_H as $key_H => $value) {
                 if ($key_H === array_key_first($nilai_H)) {
                     $hcf = $value['H'];
-    
+
                 } else {
                     $hcf = $hcf + $value['H'] * (1 - $hcf);
+                    $combin[$x][] = $hcf;
                 }
             }
             
             $hasilAkhirSolusi[$key_solusi] = $hcf;
             unset($hcf);
+            $x += 1;
         }
 
         foreach ($hasilAkhirSolusi as $index => $nilaiAkhir) {
@@ -296,10 +290,14 @@ class RespondenModel {
         unset($sumHasil);
 
         $bagiSeratus = $bagiTiga * 100;
+
         unset($bagiTiga);
-        
         unset($hasilAkhirSolusi);
-        return $bagiSeratus;
+
+
+        $hasil['combin'] = $combin;
+        $hasil['hasilBagiSeratus'] = $bagiSeratus;
+        return $hasil;
     }
 
     protected function getNilaiHByTingkatanAndRecord($id_solusi_string, $record)
@@ -311,6 +309,16 @@ class RespondenModel {
         $this->db->query($query);
         $this->db->bind('nim', $_SESSION['nim']);
         $this->db->bind('id_solusi', $id_solusi);
+        $this->db->bind('record', $record);
+        return $this->db->resultSet();
+    }
+
+    public function getCFAndHResponden($record)
+    {
+        $query = "SELECT r_cf, H, ". $this->tbl_gejala .".gejala, ". $this->tbl_gejala .".tingkatan FROM `". $this->tbl_responden ."` JOIN `". $this->tbl_gejala ."` ON ". $this->tbl_responden .".id_gejala = ". $this->tbl_gejala .".id_gejala WHERE tbl_responden.nim=:nim AND tbl_responden.record=:record";
+
+        $this->db->query($query);
+        $this->db->bind('nim', $_SESSION['nim']);
         $this->db->bind('record', $record);
         return $this->db->resultSet();
     }

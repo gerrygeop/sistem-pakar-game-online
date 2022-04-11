@@ -54,7 +54,7 @@ class Responden extends Controller {
   public function detail($record)
   {
     $data['judul'] = 'Detail Konsultasi';
-    $data['riwayat'] = $this->model('RespondenModel')->detailRiwayat($record);
+    $data['riwayatResponden'] = $this->model('RespondenModel')->getCFAndHResponden($record);
     $data['nilaiH'] = $this->model('RespondenModel')->detailRiwayatPerhitungan($record);
     $data['solusi'] = $this->model('DataPenyakitModel')->getAll();
 

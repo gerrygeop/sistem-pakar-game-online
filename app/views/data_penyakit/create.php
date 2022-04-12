@@ -10,26 +10,35 @@
    
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-11 col-md-8 col-lg-6 mx-auto mt-5 px-3 px-md-5 bg-white shadow-sm border rounded">
-            <h3 class="pt-4 text-uppercase border-bottom text-center">DATA PENYAKIT</h3>
-            <form action="<?= BASEURL; ?>/data_penyakit/datapenyakitStore" method="POST" class="pb-5 pt-3">
-                <div class="mb-3">
-                    <label for="level_gejala" class="form-label">Tingkatan Gejala</label>
-                    <input type="text" class="form-control" id="level_gejala" name="level_gejala" required>
-                </div>
-                <div class="mb-3">
-                    <label for="solusi" class="form-label">Solusi</label>
-                    <textarea  class="form-control" id="solusi" name="solusi" required></textarea>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-12">
-                        <a href="<?= BASEURL; ?>/data_penyakit/index" class="btn btn-outline-secondary w-100 mb-3">Batal</a>
-                        <button type="submit" class="btn btn-primary w-100">Simpan</button>
-                    </div>
-                </div>
-            </form>
+<div class="container px-5 py-3 mb-5 bg-white shadow-sm border rounded">
+
+    <div class="row my-3 px-5">
+        <div class="col-12">
+            <h3 class="text-secondary">#Tambah Data Penyakit & Solusi</h3>
         </div>
     </div>
+
+    <div class="px-5 py-3 rounded">
+        <form action="<?= BASEURL; ?>/data_penyakit/datapenyakitStore" method="POST">
+
+            <div class="row gy-5">
+                <div class="col-12">
+                    <label for="level_gejala" class="form-label text-secondary">Tingkatan Gejala</label>
+                    <input type="text" class="form-control" id="level_gejala" name="level_gejala" required>
+                </div>
+                <div class="col-12">
+                    <label for="solusi" class="form-label text-secondary">Solusi</label>
+                    <textarea  class="form-control" id="solusi" name="solusi" required></textarea>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12">
+                    <a href="<?= BASEURL; ?>/data_penyakit/index" class="btn btn-outline-secondary me-2">Batal</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 </div>

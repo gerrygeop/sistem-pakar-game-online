@@ -14,7 +14,7 @@
 
     <div class="row my-3 px-5">
         <div class="col-12">
-            <h3 class="text-secondary">>Tambah Data</h3>
+            <h3 class="text-secondary">#Tambah Data Gejala</h3>
         </div>
     </div>
 
@@ -22,7 +22,6 @@
         <form action="<?= BASEURL; ?>/gejala/store" method="POST">
         
             <div class="row gy-5">
-
                 <div class="col-12">
                     <label for="id_gejala" class="form-label text-secondary">ID Gejala</label>
                     <input type="text" class="form-control" id="id_gejala" name="id_gejala" autofocus required>
@@ -53,8 +52,6 @@
                     <label for="MD" class="form-label text-secondary">MD</label>
                     <input type="text" class="form-control" id="MD" name="MD" autofocus required>
                 </div>
-
-
             </div>
     
             <div class="row mt-5">
@@ -65,6 +62,5 @@
             </div>
         </form>
     </div>
-
 
 </div>

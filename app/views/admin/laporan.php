@@ -49,7 +49,7 @@
                     <th scope="col">Nilai Akhir</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Waktu</th>
-                    <th scope="col">Aksi</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody id="myTable">
@@ -80,22 +80,26 @@
     
                         <td><?= $value['timestamp']; ?></td>
     
-                        <td class="d-flex">
-                            <a 
-                                href="<?= BASEURL; ?>/admin/detailLaporanDataUser/<?= $value['nim']; ?>/<?= $value['record']; ?>" 
-                                class="btn btn-outline-primary btn-sm me-1"
-                            >
-                                Detail
-                            </a>
-
-                            <form action="<?= BASEURL; ?>/admin/delete/<?= $value['id_hasil']; ?>" method="POST">
-                                <button
-                                    class="btn btn-outline-danger btn-sm"
-                                    onclick="return confirm('Yakin?');"
+                        <td class="text-center">
+                            <div class="d-flex align-items-center">
+                                <a 
+                                    href="<?= BASEURL; ?>/admin/detail/<?= $value['nim']; ?>/<?= $value['record']; ?>" 
+                                    class="btn btn-success btn-sm pt-0 me-1"
+                                    title="Detail"
                                 >
-                                    Hapus
-                                </button>
-                            </form>
+                                    <i class="bi bi-eye"></i>
+                                </a>
+    
+                                <form action="<?= BASEURL; ?>/admin/delete/<?= $value['id_hasil']; ?>" method="POST">
+                                    <button
+                                        class="btn btn-danger btn-sm pt-0"
+                                        title="Hapus"
+                                        onclick="return confirm('Yakin?');"
+                                    >
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach?>

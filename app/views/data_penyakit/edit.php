@@ -7,23 +7,20 @@
         header('Location: '. BASEURL .'/middleware/checkout');
         exit;
     }
-   
 ?>
 
 <div class="container px-5 py-3 mb-5 bg-white shadow-sm border rounded">
 
     <div class="row my-3 px-5">
         <div class="col-12">
-            <h3 class="text-secondary">>Edit Data</h3>
+            <h3 class="text-secondary">#Edit Data Penyakit & Solusi</h3>
         </div>
     </div>
 
     <div class="px-5 py-3 rounded">
-        <form action="<?= BASEURL; ?>/data_penyakit/update"  method="POST">
-            
-        <input type="hidden" class="hidden" name="id_solusi" value="<?= $data['solusi']['id_solusi'] ?>">
-            <div class="row gy-5">
+        <form action="<?= BASEURL; ?>/data_penyakit/update/<?= $data['solusi']['id_solusi'] ?>"  method="POST">
 
+            <div class="row gy-5">
                 <div class="col-12">
                     <label for="level_gejala" class="form-label text-secondary">Tingkatan Gejala</label>
                     <input type="text" class="form-control" id="level_gejala" name="level_gejala" value="<?= $data['solusi']['level_gejala'] ?>" required>

@@ -15,9 +15,6 @@
                     <a href="<?= BASEURL; ?>/admin/laporanDataUser" class="list-group-item list-group-item-action">
                         Laporan Data User
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        Perhitungan
-                    </a>
                 </ul>
 
             <!-- Menu Mahasiswa -->

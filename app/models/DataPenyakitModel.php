@@ -16,11 +16,6 @@ class DataPenyakitModel {
         return $this->db->resultSet();
     }
 
-    public function getHasilSolusi()
-    {
-        
-    }
-
     public function storeData($data)
     {
        $query = "INSERT INTO ". $this->tbl ." (level_gejala, solusi) VALUES (:level_gejala, :solusi)";
@@ -50,20 +45,16 @@ class DataPenyakitModel {
         return $this->db->single();
     }
 
-    public function updateSolusi($data)
+    public function updateSolusi($data, $id)
     {
         $query = "UPDATE ". $this->tbl ." SET level_gejala=:level_gejala, solusi=:solusi WHERE id_solusi=:id_solusi";
 
         $this->db->query($query);
-        $this->db->bind('id_solusi', $data['id_solusi']);
+        $this->db->bind('id_solusi', $id);
         $this->db->bind('level_gejala', $data['level_gejala']);
         $this->db->bind('solusi', $data['solusi']);
-
 
         $this->db->execute();
         return $this->db->rowCount();
     }
-
-
-
 }

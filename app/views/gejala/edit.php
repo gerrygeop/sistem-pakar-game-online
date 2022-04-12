@@ -13,7 +13,7 @@
 
     <div class="row my-3 px-5">
         <div class="col-12">
-            <h3 class="text-secondary">>Edit Data</h3>
+            <h3 class="text-secondary">#Edit Data Gejala</h3>
         </div>
     </div>
 

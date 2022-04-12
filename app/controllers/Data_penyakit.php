@@ -65,9 +65,9 @@ class Data_penyakit extends Controller {
         $this->view('templates/footer');
     }
 
-      public function update()
+      public function update($id)
     {
-        if ($this->model('DataPenyakitModel')->updateSolusi($_POST) > 0) {
+        if ($this->model('DataPenyakitModel')->updateSolusi($_POST, $id) > 0) {
             Flasher::setFlash('Berhasil', 'Diedit', 'success');
             header('Location: ' . BASEURL . '/data_penyakit/index');
             exit;

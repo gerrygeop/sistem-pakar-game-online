@@ -27,7 +27,7 @@
 </head>
 <body class="font-poppins bg-light">
 
-    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary mb-3 py-2 shadow-sm">
+    <nav class="d-print-none navbar navbar-expand-lg sticky-top navbar-dark bg-primary mb-3 py-2 shadow-sm">
         <div class="container">
             <a class="navbar-brand fs-4" href="<?= BASEURL; ?>">
                 SISTEM PAKAR DIAGNOSA AWAL TINGKAT KECANDUAN GAME ONLINE

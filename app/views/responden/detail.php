@@ -12,10 +12,19 @@
         
 <div class="container">
 
-    <a href="<?= BASEURL; ?>/responden/riwayat" class="btn btn-outline-secondary me-2">Kembali</a>
+    <div class="d-print-none mb-5 d-flex">
+        <a href="<?= BASEURL; ?>/responden/riwayat" class="btn btn-outline-secondary me-2">Kembali</a>
+        <button class="btn btn-outline-primary d-flex align-items-center" onclick="printPage()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill me-1" viewBox="0 0 16 16">
+                <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+            </svg>
+            <span>Print</span>
+        </button>
+    </div>
 
-    <div class="row my-5">
-        <div class="col-4">
+    <div class="row mb-5">
+        <div class="col-12 col-lg-4 p-0 pe-lg-2 ps-lg-2 mb-5 m-lg-0">
             <div class="bg-white px-2 py-2 border rounded">
                 <table class="table">
                     <thead>
@@ -46,7 +55,7 @@
             </div>
         </div>
 
-        <div class="col-8 px-3 py-5 bg-white border rounded">
+        <div class="col-12 col-lg-8 px-3 py-5 bg-white border rounded">
             <div class="card text-center mb-5">
                 <div class="card-header">
                     Tingkat Kecanduan
@@ -118,8 +127,8 @@
         </div>
     </div>
 
-    <div class="row my-5">
-        <div class="col-8 ms-auto px-2 py-2 bg-white border rounded">
+    <div class="row mb-5">
+        <div class="col-12 col-lg-8 ms-auto px-2 py-2 bg-white border rounded">
 
             <div class="table-responsive">
                 <table class="table">
@@ -161,8 +170,8 @@
         </div>
     </div>
 
-    <div class="row my-5">
-        <div class="col-8 ms-auto px-2 pb-2 pt-3 bg-white border rounded">
+    <div class="row mb-5">
+        <div class="col-12 col-lg-8 ms-auto px-2 pb-2 pt-3 bg-white border rounded">
             <h4>CF gabungan</h4>
 
             <div class="table-responsive">
@@ -223,3 +232,9 @@
     </div>
     
 </div>
+
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>

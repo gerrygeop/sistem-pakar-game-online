@@ -104,12 +104,13 @@ class AdminModel {
         return $this->db->resultSet();
     }
 
-    public function hapusHasilResponden($id)
+    public function hapusHasilResponden($nim, $record)
     {
-        $query = "DELETE FROM ". $this->tbl_hasil ." WHERE id_hasil=:id";
+        $query = "DELETE FROM ". $this->tbl_hasil ." WHERE nim=:nim AND record=:record";
         
         $this->db->query($query);
-        $this->db->bind('id', $id);
+        $this->db->bind('nim', $nim);
+        $this->db->bind('record', $record);
         $this->db->execute();
         
         return $this->db->rowCount();

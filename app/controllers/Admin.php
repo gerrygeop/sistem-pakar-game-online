@@ -27,15 +27,15 @@ class Admin extends Controller {
         $this->view('templates/footer');
     }
 
-    public function delete($id)
+    public function delete($nim, $record)
     {
-        if ($this->model('AdminModel')->hapusHasilResponden($id) > 0) {
+        if ($this->model('AdminModel')->hapusHasilResponden($nim, $record) > 0) {
             Flasher::setFlash('Berhasil', 'Dihapus', 'success');
-            header('Location: ' . BASEURL . '/admin/index');
+            header('Location: ' . BASEURL . '/admin/laporanDataUser');
             exit;
         } else {
             Flasher::setFlash('Gagal', 'Dihapus', 'danger');
-            header('Location: ' . BASEURL . '/admin/index');
+            header('Location: ' . BASEURL . '/admin/laporanDataUser');
             exit;
         }
     }

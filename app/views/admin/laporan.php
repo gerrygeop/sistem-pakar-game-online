@@ -90,7 +90,7 @@
                                     <i class="bi bi-eye"></i>
                                 </a>
     
-                                <form action="<?= BASEURL; ?>/admin/delete/<?= $value['id_hasil']; ?>" method="POST">
+                                <form action="<?= BASEURL; ?>/admin/delete/<?= $value['nim']; ?>/<?= $value['record']; ?>" method="POST">
                                     <button
                                         class="btn btn-danger btn-sm pt-0"
                                         title="Hapus"

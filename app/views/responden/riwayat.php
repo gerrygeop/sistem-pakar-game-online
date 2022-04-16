@@ -48,7 +48,7 @@
                         <td>
                             <?php if ( $value['id_solusi'] == $data['solusi'][0]['id_solusi'] ) : ?>
                                 <span class="badge bg-warning">
-                                    <?= $data['solusi'][0]['id_solusi']; ?>
+                                    <?= $data['solusi'][0]['level_gejala']; ?>
                                 </span>
     
                             <?php elseif ( $value['id_solusi'] == $data['solusi'][1]['id_solusi'] ) : ?>

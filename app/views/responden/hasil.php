@@ -67,7 +67,7 @@
                             </h5>
                         </div>
 
-                    <?php elseif ( $data['nilaiH'] >= 34 && $data['nilaiH'] <= 67.9) : ?>
+                    <?php elseif ( $data['nilaiH'] >= 34 && $data['nilaiH'] <= 68) : ?>
                         <div class="card-body text-white" style="background-color: #ff8906;">
                             <h5 class="card-title">
                                 <?= $data['solusi'][1]['level_gejala'] ?>
@@ -103,7 +103,7 @@
                         </h5>
                     </div>
 
-                <?php elseif ( $data['nilaiH'] >= 34 && $data['nilaiH'] <= 67.9) : ?>
+                <?php elseif ( $data['nilaiH'] >= 34 && $data['nilaiH'] <= 68) : ?>
                     <div class="card-body text-white" style="background-color: #ff8906;">
                         <h5 class="card-title">
                             <?= $data['solusi'][1]['solusi'] ?>

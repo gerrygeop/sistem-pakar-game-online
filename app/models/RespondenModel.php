@@ -31,24 +31,11 @@ class RespondenModel {
         return $this->db->resultSet();
     }
 
-    protected function getMaxRecordResponden()
-    {
-        $query = "SELECT record FROM ". $this->tbl_responden ." WHERE record = (SELECT MAX(record) FROM $this->tbl_responden);";
-        return $this->db->single();
-    }
-
     public function tambahResponden($data)
     {
         $nim = intval( $_SESSION['nim'] );
-
-        $is_nim_exists = $this->checkUserTableResponden();
-        if ($is_nim_exists) {
-            $record = $this->getMaxRecordResponden();
-            $record = intval( $record );
-            $record += 1;
-        } else {
-            $record = 1;
-        }
+        $record = uniqid();
+        $_SESSION['record'] = $record;
 
         foreach ($data as $id => $rcf_string) {
 
@@ -81,11 +68,14 @@ class RespondenModel {
     protected function getNilaiHByTingkatan($id_solusi_string)
     {
         $id_solusi = intval( $id_solusi_string );
+        $nim = intval( $_SESSION['nim'] );
+
         $query = "SELECT H FROM `". $this->tbl_gejala ."` 
-        JOIN `". $this->tbl_responden ."` ON ". $this->tbl_gejala .".id_gejala = ". $this->tbl_responden .".id_gejala WHERE ". $this->tbl_responden .".nim=:nim AND tingkatan=:id_solusi AND ". $this->tbl_responden .".record = (SELECT MAX(record) FROM ". $this->tbl_responden .")";
+        JOIN `". $this->tbl_responden ."` ON ". $this->tbl_gejala .".id_gejala = ". $this->tbl_responden .".id_gejala WHERE ". $this->tbl_responden .".nim=:nim AND tingkatan=:id_solusi AND ". $this->tbl_responden .".record=:record";
 
         $this->db->query($query);
-        $this->db->bind('nim', $_SESSION['nim']);
+        $this->db->bind('nim', $nim);
+        $this->db->bind('record', $_SESSION['record']);
         $this->db->bind('id_solusi', $id_solusi);
         return $this->db->resultSet();
     }
@@ -112,7 +102,7 @@ class RespondenModel {
             }
             
             $hasilAkhirSolusi[$key_solusi] = $hcf;
-            $hcf = null;
+            unset($hcf);
         }
 
         foreach ($hasilAkhirSolusi as $index => $nilaiAkhir) {
@@ -136,31 +126,9 @@ class RespondenModel {
         return $bagiSeratus;
     }
 
-    protected function getMaxRecordHasil()
-    {
-        $query = "SELECT record FROM ". $this->tbl_hasil ." WHERE record = (SELECT MAX(record) FROM $this->tbl_hasil);";
-        return $this->db->single();
-    }
-
     public function simpanHasil($nilaiH, $solusi)
     {
-        $date = new DateTime();
-        $date = $date->format('Y-m-d H:i:s');
-
-        $is_nim_exists = $this->checkUserTableHasil();
-        if ($is_nim_exists) {
-            $record = $this->getMaxRecordHasil();
-            $record = intval( $record );
-            $record += 1;
-        } else {
-            $record = 1;
-        }
-
-        // $nilai_yang_sama = $this->cekNilaiAkhirJikaAdaYangSama($nilaiH);
-        // if ($nilai_yang_sama) return;
-
         $id_solusi = $this->dapatkanLevelGejala($nilaiH, $solusi);
-
         $nim = intval( $_SESSION['nim'] );
 
         $query = "INSERT INTO ". $this->tbl_hasil ." (nim, nilai_akhir, id_solusi, record) VALUES (:nim, :nilai_akhir, :id_solusi, :record)";
@@ -169,17 +137,10 @@ class RespondenModel {
         $this->db->bind('nim', $nim);
         $this->db->bind('nilai_akhir', $nilaiH);
         $this->db->bind('id_solusi', $id_solusi);
-        $this->db->bind('record', $record);
+        $this->db->bind('record', $_SESSION['record']);
         $this->db->execute();
 
         return $this->db->rowCount();
-    }
-
-    protected function cekNilaiAkhirJikaAdaYangSama($nilai_akhir)
-    {
-        $this->db->query('SELECT nilai_akhir FROM '. $this->tbl_hasil .' WHERE nilai_akhir=:nilai_akhir');
-        $this->db->bind('nilai_akhir', $nilai_akhir);
-        return $this->db->single();
     }
 
     protected function dapatkanLevelGejala($nilaiH, $solusi)
@@ -187,26 +148,12 @@ class RespondenModel {
         if ( $nilaiH <= 33.9 ) {
             return $solusi[0]['id_solusi'];
 
-        } elseif ( $nilaiH >= 34 && $nilaiH <= 67.9) {
+        } elseif ( $nilaiH >= 34 && $nilaiH <= 68) {
             return $solusi[1]['id_solusi'];
 
         } else {
             return $solusi[2]['id_solusi'];
         }
-    }
-
-    protected function checkUserTableResponden()
-    {
-        $this->db->query('SELECT * FROM '. $this->tbl_responden .' WHERE nim=:nim');
-        $this->db->bind('nim', $_SESSION['nim']);
-        return $this->db->single();
-    }
-
-    protected function checkUserTableHasil()
-    {
-        $this->db->query('SELECT * FROM '. $this->tbl_hasil .' WHERE nim=:nim');
-        $this->db->bind('nim', $_SESSION['nim']);
-        return $this->db->single();
     }
 
     public function hapusSolusi($id)
@@ -293,7 +240,6 @@ class RespondenModel {
 
         unset($bagiTiga);
         unset($hasilAkhirSolusi);
-
 
         $hasil['combin'] = $combin;
         $hasil['hasilBagiSeratus'] = $bagiSeratus;

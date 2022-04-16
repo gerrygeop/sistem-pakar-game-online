@@ -29,7 +29,7 @@ class Admin extends Controller {
 
     public function delete($nim, $record)
     {
-        if ($this->model('AdminModel')->hapusHasilResponden($nim, $record) > 0) {
+        if ($this->model('AdminModel')->hapusHasilResponden($nim, $record) > 0 && $this->model('AdminModel')->hapusResponden($nim, $record) > 0) {
             Flasher::setFlash('Berhasil', 'Dihapus', 'success');
             header('Location: ' . BASEURL . '/admin/laporanDataUser');
             exit;

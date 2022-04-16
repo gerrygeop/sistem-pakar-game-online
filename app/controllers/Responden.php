@@ -31,8 +31,8 @@ class Responden extends Controller {
     $data['judul'] = 'Hasil Perhitungan';
     $data['nilaiH'] = $this->model('RespondenModel')->hasilCF();
     $data['solusi'] = $this->model('DataPenyakitModel')->getAll();
-    $data['mhs'] = $this->model('UserModel')->getUserID($_SESSION['nim']);
-
+    $data['mhs'] = $this->model('UserModel')->getUserByNIM($_SESSION['nim']);
+    // return var_dump($data['solusi']);
     $this->model('RespondenModel')->simpanHasil($data['nilaiH'], $data['solusi']);
 
     $this->view('templates/header', $data);

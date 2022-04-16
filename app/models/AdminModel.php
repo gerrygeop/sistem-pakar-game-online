@@ -115,4 +115,16 @@ class AdminModel {
         
         return $this->db->rowCount();
     }
+
+    public function hapusResponden($nim, $record)
+    {
+        $query = "DELETE FROM ". $this->tbl_responden ." WHERE nim=:nim AND record=:record";
+        
+        $this->db->query($query);
+        $this->db->bind('nim', $nim);
+        $this->db->bind('record', $record);
+        $this->db->execute();
+        
+        return $this->db->rowCount();
+    }
 }

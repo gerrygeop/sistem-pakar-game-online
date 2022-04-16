@@ -12,6 +12,7 @@
         
 <div class="container">
 
+    <!-- Button Section -->
     <div class="d-print-none mb-5 d-flex">
         <a href="<?= BASEURL; ?>/responden/riwayat" class="btn btn-outline-secondary me-2">Kembali</a>
         <button class="btn btn-outline-primary d-flex align-items-center" onclick="printPage()">
@@ -24,8 +25,11 @@
     </div>
 
     <div class="row mb-5">
+        <!-- Tabel Keterangan -->
         <div class="col-12 col-lg-4 p-0 pe-lg-2 ps-lg-2 mb-5 m-lg-0">
             <div class="bg-white px-2 py-2 border rounded">
+                <h5 class="px-2 pt-2 text-decoration-underline">Keterangan</h5>
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -55,7 +59,9 @@
             </div>
         </div>
 
+        <!-- Tabel Hasil dan Solusi -->
         <div class="col-12 col-lg-8 px-3 py-5 bg-white border rounded">
+            <!-- Tingkat Kecanduan -->
             <div class="card text-center mb-5">
                 <div class="card-header">
                     Tingkat Kecanduan
@@ -72,7 +78,7 @@
                             </h5>
                         </div>
 
-                    <?php elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 67.9) : ?>
+                    <?php elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) : ?>
                         <div class="card-body bg-orange text-white">
                             <h5 class="card-title">
                                 <?= $data['solusi'][1]['level_gejala'] ?>
@@ -96,6 +102,7 @@
                 </div>
             </div>
 
+            <!-- Solusi -->
             <div class="card text-center">
                 <div class="card-header">
                     Solusi
@@ -108,7 +115,7 @@
                         </h5>
                     </div>
 
-                <?php elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 67.9) : ?>
+                <?php elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) : ?>
                     <div class="card-body bg-orange text-white">
                         <h5 class="card-title">
                             <?= $data['solusi'][1]['solusi'] ?>
@@ -128,6 +135,7 @@
     </div>
 
     <div class="row mb-5">
+        <!-- Tabel nilai CF -->
         <div class="col-12 col-lg-8 ms-auto px-2 py-2 bg-white border rounded">
 
             <div class="table-responsive">
@@ -171,8 +179,9 @@
     </div>
 
     <div class="row mb-5">
+        <!-- Tabel nilai CF gabungan -->
         <div class="col-12 col-lg-8 ms-auto px-2 pb-2 pt-3 bg-white border rounded">
-            <h4>CF gabungan</h4>
+            <h5 class="px-2 pt-2 text-decoration-underline">CF gabungan</h5>
 
             <div class="table-responsive">
                 <table class="table">
@@ -212,10 +221,10 @@
                                 <?php 
                                     if ( $data['nilaiH']['hasilBagiSeratus'] <=33.9 ) {
                                         echo 'class="bg-warning"';
-                                    } elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 67.9) {
-                                        echo 'style="background-color: #ff8906;"';
+                                    } elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) {
+                                        echo 'class="text-white" style="background-color: #ff8906;"';
                                     } else {
-                                        echo 'class="bg-danger"';
+                                        echo 'class="text-white bg-danger"';
                                     }
                                 ?>
                             >

@@ -11,6 +11,7 @@
         
 <div class="container">
 
+    <!-- Button Section -->
     <div class="d-print-none mb-5 d-flex">
         <a href="<?= BASEURL; ?>/admin/laporanDataUser" class="btn btn-outline-secondary me-2">Kembali</a>
         <button class="btn btn-outline-primary d-flex align-items-center" onclick="printPage()">
@@ -24,7 +25,10 @@
 
     <div class="row mb-5">
         <div class="col-12 col-lg-4 p-0 pe-lg-2 ps-lg-2 mb-5 m-lg-0">
+
+            <!-- Tabel Biodata -->
             <div class="bg-white border rounded mb-3">
+                <h5 class="px-2 pt-2 text-decoration-underline">Biodata</h5>
                 <table class="table mb-0">
                     <tr>
                         <th>NIM</th>
@@ -44,7 +48,7 @@
                     </tr>
                     <tr>
                         <th>Jenis Kelamin</th>
-                        <td><?= $data['mhs']['nim'] ?></td>
+                        <td><?= $data['mhs']['jk'] ?></td>
                     </tr>
                     <tr>
                         <th>Umur</th>
@@ -53,7 +57,9 @@
                 </table>
             </div>
 
+            <!-- Tabel keterangan -->
             <div class="bg-white p-1 border rounded">
+                <h5 class="px-2 pt-2 text-decoration-underline">Keterangan</h5>
                 <table class="table">
                     <thead>
                         <tr>
@@ -62,7 +68,7 @@
                             <th scope="col">% Interval</th>
                         </tr>
                     </thead>
-                    <tbody class="text-white">
+                    <tbody>
                         <tr class="bg-warning">
                             <td>Ringan</td>
                             <td>0 - 33</td>
@@ -83,6 +89,7 @@
             </div>
         </div>
 
+        <!-- Tabel Hasil dan Solusi -->
         <div class="col-12 col-lg-8 px-2 py-3 ms-auto bg-white border rounded">
             <div class="d-flex flex-column justify-content-around h-100">
                 <div class="card text-center mb-5">
@@ -100,7 +107,7 @@
                             </h5>
                         </div>
 
-                    <?php elseif ( $data['laporan']['nilai_akhir'] >= 34 && $data['laporan']['nilai_akhir'] <= 67.9) : ?>
+                    <?php elseif ( $data['laporan']['nilai_akhir'] >= 34 && $data['laporan']['nilai_akhir'] <= 68) : ?>
                         <div class="card-body text-white" style="background-color: #ff8906;">
                             <h5 class="card-title">
                                 <?= $data['solusi'][1]['level_gejala'] ?>
@@ -135,7 +142,7 @@
                             </h5>
                         </div>
     
-                    <?php elseif ( $data['laporan']['nilai_akhir'] >= 34 && $data['laporan']['nilai_akhir'] <= 67.9) : ?>
+                    <?php elseif ( $data['laporan']['nilai_akhir'] >= 34 && $data['laporan']['nilai_akhir'] <= 68) : ?>
                         <div class="card-body text-white" style="background-color: #ff8906;">
                             <h5 class="card-title">
                                 <?= $data['solusi'][1]['solusi'] ?>
@@ -156,7 +163,8 @@
     </div>
 
     <div class="row mb-5">
-        <div class="col-12 ms-auto px-2 py-2 bg-white border rounded">
+        <!-- tabel nilai CF -->
+        <div class="col-12 col-lg-8 ms-auto px-2 py-2 bg-white border rounded">
 
             <div class="table-responsive">
                 <table class="table">
@@ -167,7 +175,7 @@
                             <th scope="col">CF sequencial</th>
                         </tr>
                     </thead>
-                    <tbody class="text-white">
+                    <tbody>
                         <?php foreach ( $data['riwayatResponden'] as $key => $value ) : ?>
                             <tr 
                                 <?php 
@@ -199,8 +207,9 @@
     </div>
 
     <div class="row mb-5">
-        <div class="col-12 ms-auto px-2 pb-2 pt-3 bg-white border rounded">
-            <h4>CF gabungan</h4>
+        <!-- Tabel nilai CF gabungan -->
+        <div class="col-12 col-lg-8 ms-auto px-2 pb-2 pt-3 bg-white border rounded">
+            <h5 class="px-2 pt-2 text-decoration-underline">CF gabungan</h5>
 
             <div class="table-responsive">
                 <table class="table mb-0">
@@ -218,11 +227,11 @@
                         <?php foreach ( $data['nilaiH']['combin'] as $key => $combin ) : ?>
                             <tr>
                                 <?php if ( $key == 1 ) : ?>
-                                    <th class="text-white bg-warning">Ringan</th>
+                                    <th class="bg-warning">Ringan</th>
                                 <?php elseif ( $key == 2 ) : ?>
-                                    <th class="text-white" style="background-color: #ff8906;">Sedang</th>
+                                    <th style="background-color: #ff8906;">Sedang</th>
                                 <?php else : ?>
-                                    <th class="text-white bg-danger">Berat</th>
+                                    <th class="bg-danger">Berat</th>
                                 <?php endif; ?>
 
                                 <?php foreach ( $combin as $value_combin ) : ?>
@@ -238,9 +247,9 @@
                             <th 
                                 colspan="5"
                                 <?php 
-                                    if ( $data['nilaiH']['hasilBagiSeratus'] <=33.9 ) {
-                                        echo 'class="text-white bg-warning"';
-                                    } elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 67.9) {
+                                    if ( $data['nilaiH']['hasilBagiSeratus'] <= 33.9 ) {
+                                        echo 'class="bg-warning"';
+                                    } elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) {
                                         echo 'class="text-white" style="background-color: #ff8906;"';
                                     } else {
                                         echo 'class="text-white bg-danger"';

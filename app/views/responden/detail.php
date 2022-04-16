@@ -59,83 +59,36 @@
             </div>
         </div>
 
-        <!-- Tabel Hasil dan Solusi -->
         <div class="col-12 col-lg-8 px-3 py-5 bg-white border rounded">
             <!-- Tingkat Kecanduan -->
             <div class="card text-center mb-5">
-                <div class="card-header">
-                    Tingkat Kecanduan
-                </div>
+                <div class="card-header">Tingkat Kecanduan</div>
 
-                <div class="card-body">
-                    <?php if ( $data['nilaiH']['hasilBagiSeratus'] <= 33.9 ) : ?>
-                        <div class="card-body bg-warning">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][0]['level_gejala'] ?>
-                            </h5>
-                            <h5 class="card-title">
-                                <?= $data['nilaiH']['hasilBagiSeratus'] ?>
-                            </h5>
-                        </div>
-
-                    <?php elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) : ?>
-                        <div class="card-body bg-orange text-white">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][1]['level_gejala'] ?>
-                            </h5>
-                            <h5 class="card-title">
-                                <?= $data['nilaiH']['hasilBagiSeratus'] ?>
-                            </h5>
-                        </div>
-
-                    <?php else : ?>
-                        <div class="card-body bg-danger text-white">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][2]['level_gejala'] ?>
-                            </h5>
-                            <h5 class="card-title">
-                                <?= $data['nilaiH']['hasilBagiSeratus'] ?>
-                            </h5>
-                        </div>
-
-                    <?php endif; ?>
+                <div class="card-body <?= $data['h']['class'] ?>">
+                    <h5 class="card-title">
+                        <?= $data['h']['level_gejala'] ?>
+                    </h5>
+                    <h5 class="card-title">
+                        <?= $data['nilaiH']['hasilBagiSeratus'] ?>
+                    </h5>
                 </div>
             </div>
 
             <!-- Solusi -->
             <div class="card text-center">
-                <div class="card-header">
-                    Solusi
+                <div class="card-header">Solusi</div>
+
+                <div class="card-body <?= $data['h']['class'] ?>">
+                    <h5 class="card-title">
+                        <?= $data['h']['solusi'] ?>
+                    </h5>
                 </div>
-
-                <?php if ( $data['nilaiH']['hasilBagiSeratus'] <=33.9 ) : ?>
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title">
-                            <?= $data['solusi'][0]['solusi'] ?>
-                        </h5>
-                    </div>
-
-                <?php elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) : ?>
-                    <div class="card-body bg-orange text-white">
-                        <h5 class="card-title">
-                            <?= $data['solusi'][1]['solusi'] ?>
-                        </h5>
-                    </div>
-
-                <?php else : ?>
-                    <div class="card-body bg-danger text-white">
-                        <h5 class="card-title">
-                            <?= $data['solusi'][2]['solusi'] ?>
-                        </h5>
-                    </div>
-
-                <?php endif; ?>
             </div>
         </div>
     </div>
 
+    <!-- Tabel nilai CF -->
     <div class="row mb-5">
-        <!-- Tabel nilai CF -->
         <div class="col-12 col-lg-8 ms-auto px-2 py-2 bg-white border rounded">
 
             <div class="table-responsive">
@@ -150,15 +103,13 @@
                     <tbody>
                         <?php foreach ( $data['riwayatResponden'] as $key => $value ) : ?>
                             <tr 
-                                <?php 
-                                    if ( $value['tingkatan'] == 1 ) {
-                                        echo 'class="bg-warning"';
-                                    } elseif ( $value['tingkatan'] == 2) {
-                                        echo 'class="bg-orange"';
-                                    } else {
-                                        echo 'class="bg-danger"';
-                                    }
-                                ?>
+                                <?php if ( $value['tingkatan'] == 1 ) : ?>
+                                        class="bg-warning"
+                                <?php elseif ( $value['tingkatan'] == 2) : ?>
+                                        class="bg-orange"
+                                <?php else : ?>
+                                        class="bg-danger"
+                                <?php endif; ?>
                             >
                                 <td>
                                     <?= $value['gejala'] ?>
@@ -218,15 +169,8 @@
                             <th scope="row">Hasil</th>
                             <th 
                                 colspan="5"
-                                <?php 
-                                    if ( $data['nilaiH']['hasilBagiSeratus'] <=33.9 ) {
-                                        echo 'class="bg-warning"';
-                                    } elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) {
-                                        echo 'class="text-white" style="background-color: #ff8906;"';
-                                    } else {
-                                        echo 'class="text-white bg-danger"';
-                                    }
-                                ?>
+                                class="<?= $data['h']['class'] ?>"
+                                <?= $data['h']['style'] ?>
                             >
                                 <p class="text-center pt-3">
                                     <?= $data['nilaiH']['hasilBagiSeratus'] ?>

@@ -58,9 +58,45 @@ class Responden extends Controller {
     $data['nilaiH'] = $this->model('RespondenModel')->detailRiwayatPerhitungan($record);
     $data['solusi'] = $this->model('DataPenyakitModel')->getAll();
 
+    $data['h'] = $this->checkNilaiH($data['nilaiH'], $data['solusi']);
+
     $this->view('templates/header', $data);
     $this->view('responden/detail', $data);
     $this->view('templates/footer');
+  }
+
+  protected function checkNilaiH($nilaiH, $solusi)
+  {
+    if ( $nilaiH['hasilBagiSeratus'] < 34 )
+    {
+      return [
+        'level_gejala' => $solusi[0]['level_gejala'],
+        'solusi' => $solusi[0]['solusi'],
+        'class' => 'bg-warning',
+        'style' => ''
+      ];
+    }
+    
+    if ( $nilaiH['hasilBagiSeratus'] >= 34 && $nilaiH['hasilBagiSeratus'] <= 68 )
+    {
+      return [
+        'level_gejala' => $solusi[1]['level_gejala'],
+        'solusi' => $solusi[1]['solusi'],
+        'class' => 'bg-orange text-white',
+        'style' => 'style="background-color: #ff8906;"'
+      ];
+    }
+    
+    if ( $nilaiH['hasilBagiSeratus'] > 68 ) 
+    {
+      return [
+        'level_gejala' => $solusi[2]['level_gejala'],
+        'solusi' => $solusi[2]['solusi'],
+        'class' => 'bg-danger text-white',
+        'style' => ''
+      ];
+    }
+    
   }
 
   //   public function delete($id)

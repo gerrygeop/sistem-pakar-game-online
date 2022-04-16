@@ -38,13 +38,13 @@ class UserModel {
         $row = $this->db->single();
         $hashPassword = $row['password'];
 
-        // if (password_verify($password, $hashPassword)) {
         if ($password == $hashPassword) {
             return $row;
         } else {
             return false;
         }
     }
+
     public function loginAdmin($nim, $password)
     {
         $this->db->query('SELECT * FROM '. $this->table .' WHERE level=:level AND nim=:nim');
@@ -73,6 +73,7 @@ class UserModel {
             return false;
         }
     }
+
     public function getUserByNIM($nim)
     {
         $this->db->query('SELECT * FROM '. $this->table .' WHERE nim=:nim');
@@ -80,9 +81,9 @@ class UserModel {
         return $this->db->single();
     }
 
-    public function updateUser($data)
+    public function updateProfileUser($data)
     {
-        $query = "UPDATE ". $this->table ." SET nim=:nim, nama=:nama, fakultas=:fakultas, angkatan=:angkatan,jk=:jk, umur=:umur, password= :password WHERE nim=:nim";
+        $query = "UPDATE ". $this->table ." SET nim=:nim, nama=:nama, fakultas=:fakultas, angkatan=:angkatan,jk=:jk, umur=:umur WHERE nim=:nim";
 
         $this->db->query($query);
         $this->db->bind('nim', $data['nim']);
@@ -91,7 +92,18 @@ class UserModel {
         $this->db->bind('angkatan', $data['angkatan']);
         $this->db->bind('jk', $data['jk']);
         $this->db->bind('umur', $data['umur']);
-        $this->db->bind('password', $data['password']);
+
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function updatePasswordUser($password, $nim)
+    {
+        $query = "UPDATE ". $this->table ." SET password=:password WHERE nim=:nim";
+
+        $this->db->query($query);
+        $this->db->bind('nim', $nim);
+        $this->db->bind('password', $password);
 
         $this->db->execute();
         return $this->db->rowCount();

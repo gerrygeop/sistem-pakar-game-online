@@ -29,8 +29,10 @@
 
     <nav class="d-print-none navbar navbar-expand-lg sticky-top navbar-dark bg-primary mb-3 py-2 shadow-sm">
         <div class="container">
-            <a class="navbar-brand fs-4" href="<?= BASEURL; ?>">
-                SISTEM PAKAR DIAGNOSA AWAL TINGKAT KECANDUAN GAME ONLINE
+            <a class="navbar-brand bg-white text-dark d-flex align-items-center rounded-2 px-2 fs-4 fw-bold" href="<?= BASEURL; ?>">
+                <
+                <img src="<?=BASEURL?>/img/3profile3.png" alt="Beranda" width="50" class="mx-2">
+                >
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

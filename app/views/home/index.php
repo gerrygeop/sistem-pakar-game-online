@@ -1,4 +1,8 @@
 <div class="container">
+    <header class="d-print-none px-5 py-3 text-white text-center bg-primary rounded">
+        <h3>SISTEM PAKAR DIAGNOSA AWAL TINGKAT KECANDUAN GAME ONLINE</h3>
+    </header>
+
     <div class="row my-lg-5 pt-4 text-center">
         <div class="col-12 col-lg-4 text-lg-start pt-lg-4">
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 24, 2022 at 07:32 AM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.21
+-- Host: localhost:3306
+-- Generation Time: Apr 19, 2022 at 09:50 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -66,12 +66,24 @@ INSERT INTO `tbl_gejala` (`id_gejala`, `gejala`, `tingkatan`, `MB`, `MD`, `CF`) 
 --
 
 CREATE TABLE `tbl_hasil` (
-  `id_hasil` int(11) NOT NULL,
+  `id_hasil` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `nim` int(12) NOT NULL,
-  `nilai_akhir` float NOT NULL,
-  `kategori` varchar(6) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `nilai_akhir` double NOT NULL,
+  `id_solusi` int(3) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `record` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_hasil`
+--
+
+INSERT INTO `tbl_hasil` (`id_hasil`, `nim`, `nilai_akhir`, `id_solusi`, `timestamp`, `record`) VALUES
+('2022-04-16 00:38:12', 1507055055, 61.196772693333, 2, '2022-04-16 00:38:12', '625a0ff3ec012'),
+('2022-04-16 00:41:25', 1507055055, 65.737219413333, 2, '2022-04-16 00:41:25', '625a10b44b38f'),
+('2022-04-16 00:44:24', 1715015002, 82.305092130133, 3, '2022-04-16 00:44:24', '625a116778e4b'),
+('2022-04-16 17:27:48', 1715015001, 38.487466666667, 2, '2022-04-16 17:27:48', '625afc94332eb'),
+('2022-04-19 18:52:06', 1715015003, 61.196772693333, 2, '2022-04-19 18:52:06', '625f04d5dec7a');
 
 -- --------------------------------------------------------
 
@@ -85,8 +97,8 @@ CREATE TABLE `tbl_responden` (
   `nim` int(12) NOT NULL,
   `r_cf` float NOT NULL,
   `H` float NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `record` int(11) DEFAULT NULL
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `record` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -94,42 +106,89 @@ CREATE TABLE `tbl_responden` (
 --
 
 INSERT INTO `tbl_responden` (`id_responden`, `id_gejala`, `nim`, `r_cf`, `H`, `timestamp`, `record`) VALUES
-(198, 'GJ001', 1903016065, 0.6, 0.12, '2022-02-10 21:47:29', 1),
-(199, 'GJ002', 1903016065, 0.8, 0.16, '2022-02-10 21:47:29', 1),
-(200, 'GJ003', 1903016065, 0.8, 0.16, '2022-02-10 21:47:29', 1),
-(201, 'GJ004', 1903016065, 0.8, 0.16, '2022-02-10 21:47:29', 1),
-(202, 'GJ005', 1903016065, 0.6, 0.12, '2022-02-10 21:47:29', 1),
-(203, 'GJ006', 1903016065, 0, 0, '2022-02-10 21:47:29', 1),
-(204, 'GJ007', 1903016065, 0, 0, '2022-02-10 21:47:29', 1),
-(205, 'GJ008', 1903016065, 0, 0, '2022-02-10 21:47:29', 1),
-(206, 'GJ009', 1903016065, 0, 0, '2022-02-10 21:47:29', 1),
-(207, 'GJ010', 1903016065, 0.4, 0.24, '2022-02-10 21:47:29', 1),
-(208, 'GJ011', 1903016065, 0.4, 0.24, '2022-02-10 21:47:29', 1),
-(209, 'GJ012', 1903016065, 0, 0, '2022-02-10 21:47:29', 1),
-(210, 'GJ013', 1903016065, 0.6, 0.36, '2022-02-10 21:47:29', 1),
-(211, 'GJ014', 1903016065, 0.6, 0.36, '2022-02-10 21:47:29', 1),
-(212, 'GJ015', 1903016065, 0.6, 0.36, '2022-02-10 21:47:29', 1),
-(213, 'GJ016', 1903016065, 0.4, 0.24, '2022-02-10 21:47:29', 1),
-(214, 'GJ017', 1903016065, 0.6, 0.36, '2022-02-10 21:47:29', 1),
-(215, 'GJ001', 1903016065, 0.8, 0.16, '2022-02-10 21:48:51', 2),
-(216, 'GJ002', 1903016065, 0.6, 0.12, '2022-02-10 21:48:51', 2),
-(217, 'GJ003', 1903016065, 0.6, 0.12, '2022-02-10 21:48:51', 2),
-(218, 'GJ004', 1903016065, 0.8, 0.16, '2022-02-10 21:48:51', 2),
-(219, 'GJ005', 1903016065, 0.8, 0.16, '2022-02-10 21:48:51', 2),
-(220, 'GJ006', 1903016065, 0.4, 0.24, '2022-02-10 21:48:51', 2),
-(221, 'GJ007', 1903016065, 0.4, 0.24, '2022-02-10 21:48:51', 2),
-(222, 'GJ008', 1903016065, 0.6, 0.36, '2022-02-10 21:48:51', 2),
-(223, 'GJ009', 1903016065, 0, 0, '2022-02-10 21:48:51', 2),
-(224, 'GJ010', 1903016065, 0, 0, '2022-02-10 21:48:51', 2),
-(225, 'GJ011', 1903016065, 0, 0, '2022-02-10 21:48:51', 2),
-(226, 'GJ012', 1903016065, 0, 0, '2022-02-10 21:48:51', 2),
-(227, 'GJ014', 1903016065, 0.6, 0.36, '2022-02-10 21:48:51', 2),
-(228, 'GJ015', 1903016065, 0, 0, '2022-02-10 21:48:51', 2),
-(229, 'GJ016', 1903016065, 0.4, 0.24, '2022-02-10 21:48:51', 2),
-(230, 'GJ017', 1903016065, 0.6, 0.36, '2022-02-10 21:48:51', 2),
-(231, 'GJ010', 1903016065, 0.8, 0.48, '2022-02-13 06:07:06', 2),
-(232, 'GJ011', 1903016065, 0.6, 0.36, '2022-02-13 06:07:06', 2),
-(233, 'GJ012', 1903016065, 0.8, 0.48, '2022-02-13 06:07:06', 2);
+(692, 'GJ001', 1507055055, 0.6, 0.12, '2022-04-16 00:38:11', '625a0ff3ec012'),
+(693, 'GJ002', 1507055055, 0.8, 0.16, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(694, 'GJ003', 1507055055, 0.8, 0.16, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(695, 'GJ004', 1507055055, 0.8, 0.16, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(696, 'GJ005', 1507055055, 0.6, 0.12, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(697, 'GJ006', 1507055055, 0, 0, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(698, 'GJ007', 1507055055, 0, 0, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(699, 'GJ008', 1507055055, 0, 0, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(700, 'GJ009', 1507055055, 0, 0, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(701, 'GJ010', 1507055055, 0.4, 0.24, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(702, 'GJ011', 1507055055, 0.4, 0.24, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(703, 'GJ012', 1507055055, 0, 0, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(704, 'GJ013', 1507055055, 0.6, 0.36, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(705, 'GJ014', 1507055055, 0.6, 0.36, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(706, 'GJ015', 1507055055, 0.6, 0.36, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(707, 'GJ016', 1507055055, 0.4, 0.24, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(708, 'GJ017', 1507055055, 0.6, 0.36, '2022-04-16 00:38:12', '625a0ff3ec012'),
+(709, 'GJ001', 1507055055, 0.8, 0.16, '2022-04-16 00:41:24', '625a10b44b38f'),
+(710, 'GJ002', 1507055055, 0.6, 0.12, '2022-04-16 00:41:24', '625a10b44b38f'),
+(711, 'GJ003', 1507055055, 0.6, 0.12, '2022-04-16 00:41:24', '625a10b44b38f'),
+(712, 'GJ004', 1507055055, 0.8, 0.16, '2022-04-16 00:41:24', '625a10b44b38f'),
+(713, 'GJ005', 1507055055, 0.8, 0.16, '2022-04-16 00:41:24', '625a10b44b38f'),
+(714, 'GJ006', 1507055055, 0.4, 0.24, '2022-04-16 00:41:24', '625a10b44b38f'),
+(715, 'GJ007', 1507055055, 0.4, 0.24, '2022-04-16 00:41:24', '625a10b44b38f'),
+(716, 'GJ008', 1507055055, 0.6, 0.36, '2022-04-16 00:41:24', '625a10b44b38f'),
+(717, 'GJ009', 1507055055, 0, 0, '2022-04-16 00:41:25', '625a10b44b38f'),
+(718, 'GJ010', 1507055055, 0, 0, '2022-04-16 00:41:25', '625a10b44b38f'),
+(719, 'GJ011', 1507055055, 0, 0, '2022-04-16 00:41:25', '625a10b44b38f'),
+(720, 'GJ012', 1507055055, 0, 0, '2022-04-16 00:41:25', '625a10b44b38f'),
+(721, 'GJ013', 1507055055, 0.6, 0.36, '2022-04-16 00:41:25', '625a10b44b38f'),
+(722, 'GJ014', 1507055055, 0.6, 0.36, '2022-04-16 00:41:25', '625a10b44b38f'),
+(723, 'GJ015', 1507055055, 0, 0, '2022-04-16 00:41:25', '625a10b44b38f'),
+(724, 'GJ016', 1507055055, 0.4, 0.24, '2022-04-16 00:41:25', '625a10b44b38f'),
+(725, 'GJ017', 1507055055, 0.6, 0.36, '2022-04-16 00:41:25', '625a10b44b38f'),
+(726, 'GJ001', 1715015002, 0.8, 0.16, '2022-04-16 00:44:23', '625a116778e4b'),
+(727, 'GJ002', 1715015002, 0.6, 0.12, '2022-04-16 00:44:23', '625a116778e4b'),
+(728, 'GJ003', 1715015002, 0.6, 0.12, '2022-04-16 00:44:23', '625a116778e4b'),
+(729, 'GJ004', 1715015002, 1, 0.2, '2022-04-16 00:44:23', '625a116778e4b'),
+(730, 'GJ005', 1715015002, 0.6, 0.12, '2022-04-16 00:44:23', '625a116778e4b'),
+(731, 'GJ006', 1715015002, 0.8, 0.48, '2022-04-16 00:44:23', '625a116778e4b'),
+(732, 'GJ007', 1715015002, 0.8, 0.48, '2022-04-16 00:44:23', '625a116778e4b'),
+(733, 'GJ008', 1715015002, 0.6, 0.36, '2022-04-16 00:44:23', '625a116778e4b'),
+(734, 'GJ009', 1715015002, 0.8, 0.48, '2022-04-16 00:44:23', '625a116778e4b'),
+(735, 'GJ010', 1715015002, 0.6, 0.36, '2022-04-16 00:44:23', '625a116778e4b'),
+(736, 'GJ011', 1715015002, 0.8, 0.48, '2022-04-16 00:44:24', '625a116778e4b'),
+(737, 'GJ012', 1715015002, 0.6, 0.36, '2022-04-16 00:44:24', '625a116778e4b'),
+(738, 'GJ013', 1715015002, 0.6, 0.36, '2022-04-16 00:44:24', '625a116778e4b'),
+(739, 'GJ014', 1715015002, 0.6, 0.36, '2022-04-16 00:44:24', '625a116778e4b'),
+(740, 'GJ015', 1715015002, 1, 0.6, '2022-04-16 00:44:24', '625a116778e4b'),
+(741, 'GJ016', 1715015002, 0.6, 0.36, '2022-04-16 00:44:24', '625a116778e4b'),
+(742, 'GJ017', 1715015002, 0.6, 0.36, '2022-04-16 00:44:24', '625a116778e4b'),
+(743, 'GJ001', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(744, 'GJ003', 1715015001, 0.4, 0.08, '2022-04-16 17:27:48', '625afc94332eb'),
+(745, 'GJ004', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(746, 'GJ005', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(747, 'GJ006', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(748, 'GJ007', 1715015001, 0.4, 0.24, '2022-04-16 17:27:48', '625afc94332eb'),
+(749, 'GJ008', 1715015001, 0.4, 0.24, '2022-04-16 17:27:48', '625afc94332eb'),
+(750, 'GJ009', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(751, 'GJ010', 1715015001, 0.4, 0.24, '2022-04-16 17:27:48', '625afc94332eb'),
+(752, 'GJ011', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(753, 'GJ012', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(754, 'GJ013', 1715015001, 0.6, 0.36, '2022-04-16 17:27:48', '625afc94332eb'),
+(755, 'GJ014', 1715015001, 0.4, 0.24, '2022-04-16 17:27:48', '625afc94332eb'),
+(756, 'GJ015', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(757, 'GJ016', 1715015001, 0, 0, '2022-04-16 17:27:48', '625afc94332eb'),
+(758, 'GJ001', 1715015003, 0.6, 0.12, '2022-04-19 18:52:05', '625f04d5dec7a'),
+(759, 'GJ002', 1715015003, 0.8, 0.16, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(760, 'GJ003', 1715015003, 0.8, 0.16, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(761, 'GJ004', 1715015003, 0.8, 0.16, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(762, 'GJ005', 1715015003, 0.6, 0.12, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(763, 'GJ006', 1715015003, 0, 0, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(764, 'GJ007', 1715015003, 0, 0, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(765, 'GJ008', 1715015003, 0, 0, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(766, 'GJ009', 1715015003, 0, 0, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(767, 'GJ010', 1715015003, 0.4, 0.24, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(768, 'GJ011', 1715015003, 0.4, 0.24, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(769, 'GJ012', 1715015003, 0, 0, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(770, 'GJ013', 1715015003, 0.6, 0.36, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(771, 'GJ014', 1715015003, 0.6, 0.36, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(772, 'GJ015', 1715015003, 0.6, 0.36, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(773, 'GJ016', 1715015003, 0.4, 0.24, '2022-04-19 18:52:06', '625f04d5dec7a'),
+(774, 'GJ017', 1715015003, 0.6, 0.36, '2022-04-19 18:52:06', '625f04d5dec7a');
 
 -- --------------------------------------------------------
 
@@ -140,17 +199,20 @@ INSERT INTO `tbl_responden` (`id_responden`, `id_gejala`, `nim`, `r_cf`, `H`, `t
 CREATE TABLE `tbl_solusi` (
   `id_solusi` int(3) NOT NULL,
   `level_gejala` varchar(6) NOT NULL,
-  `solusi` text NOT NULL
+  `solusi` text NOT NULL,
+  `min` double DEFAULT NULL,
+  `max` double DEFAULT NULL,
+  `color` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_solusi`
 --
 
-INSERT INTO `tbl_solusi` (`id_solusi`, `level_gejala`, `solusi`) VALUES
-(1, 'Rendah', 'Melakukan aktifitas atau kegiata positif, menjaga komunikasi, serta jaga Kesehatan fisik dan pikiran'),
-(2, 'Sedang', 'Tentukan makna dan tujuan hidup, lakukan komunikasi dengan orang terdekat dan orang lain, dan imbangi dengan aktifitas positif'),
-(3, 'Berat', 'Carilah orang terdekat untuk selalu mengingatkan mengurangi waktu untuk memakai gadget, fokus pada hal yang ini dicapai dan tujuan hidup, alihkan perhatian ke aktifitas positif atau mencari berkumpul dengan orang lain, banyak beribadah dan bertaqwa pada Tuhan YME. Jika saran sudah coba dilakukan tetapi belum berdampak pada penurunan kecanduan anda, silahkan datang ke psikologi untuk konsultasi secara langsung');
+INSERT INTO `tbl_solusi` (`id_solusi`, `level_gejala`, `solusi`, `min`, `max`, `color`) VALUES
+(1, 'Ringan', 'Melakukan aktifitas atau kegiata positif, menjaga komunikasi, serta jaga Kesehatan fisik dan pikiran.', 0, 34, 'bg-warning'),
+(2, 'Sedang', 'Tentukan makna dan tujuan hidup, lakukan komunikasi dengan orang terdekat dan orang lain, dan imbangi dengan aktifitas positif', 34, 68, 'bg-orange'),
+(3, 'Berat', 'Carilah orang terdekat untuk selalu mengingatkan mengurangi waktu untuk memakai gadget, fokus pada hal yang ini dicapai dan tujuan hidup, alihkan perhatian ke aktifitas positif atau mencari berkumpul dengan orang lain, banyak beribadah dan bertaqwa pada Tuhan YME. Jika saran sudah coba dilakukan tetapi belum berdampak pada penurunan kecanduan anda, silahkan datang ke psikologi untuk konsultasi secara langsung', 68, 100, 'bg-danger');
 
 -- --------------------------------------------------------
 
@@ -176,7 +238,11 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`nim`, `nama`, `fakultas`, `angkatan`, `jk`, `umur`, `password`, `level`) VALUES
 (23521046, 'Zawil', 'FT', 2015, 'Perempuan', 24, 'admin123', 'admin'),
 (1507055055, 'hikam', 'FT', 2017, 'Laki-laki', 22, 'qwer', 'mahasiswa'),
-(1903016065, 'Riski', 'FT', 2019, 'Laki-laki', 23, 'hikam123', 'mahasiswa');
+(1715015001, 'Jennie', 'Teknik Informatika', 2019, 'Perempuan', 24, 'asdasd', 'mahasiswa'),
+(1715015002, 'Joko Anwar', 'Teknik Film', 2019, 'Perempuan', 23, 'qwer', 'mahasiswa'),
+(1715015003, 'Roni Stepani', 'Teknik Informatika', 2019, 'Laki-laki', 23, 'asdasd', 'mahasiswa'),
+(1715015145, 'Gerry', 'Teknik Ilmu Budaya', 2018, 'Laki-laki', 20, 'asdasd', 'mahasiswa'),
+(1903016065, 'Resky', 'FT', 2019, 'Laki-laki', 23, 'asdasd', 'mahasiswa');
 
 --
 -- Indexes for dumped tables
@@ -220,13 +286,13 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_responden`
 --
 ALTER TABLE `tbl_responden`
-  MODIFY `id_responden` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
+  MODIFY `id_responden` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=775;
 
 --
 -- AUTO_INCREMENT for table `tbl_solusi`
 --
 ALTER TABLE `tbl_solusi`
-  MODIFY `id_solusi` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_solusi` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -203,7 +203,6 @@ class RespondenModel {
     public function detailRiwayatPerhitungan($record)
     {
         $solusi = $this->getSolusi();
-        $x = 1;
         foreach ($solusi as $key_solusi => $value_solusi) {
 
             $nilai_H = $this->getNilaiHByTingkatanAndRecord($value_solusi['id_solusi'], $record);
@@ -213,13 +212,12 @@ class RespondenModel {
 
                 } else {
                     $hcf = $hcf + $value['H'] * (1 - $hcf);
-                    $combin[$x][] = $hcf;
+                    $combin[$value_solusi['id_solusi']][] = $hcf;
                 }
             }
             
             $hasilAkhirSolusi[$key_solusi] = $hcf;
             unset($hcf);
-            $x += 1;
         }
 
         foreach ($hasilAkhirSolusi as $index => $nilaiAkhir) {

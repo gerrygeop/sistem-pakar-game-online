@@ -7,7 +7,7 @@ class Admin extends Controller {
         $data['judul'] = 'Laporan Data User';
         $data['laporan'] = $this->model('AdminModel')->getAllRiwayat();
         $data['solusi'] = $this->model('DataPenyakitModel')->getAll();
-
+        
         $this->view('templates/header', $data);
         $this->view('admin/laporan', $data);
         $this->view('templates/footer');

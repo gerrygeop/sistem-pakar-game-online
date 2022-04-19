@@ -7,7 +7,6 @@
         header('Location: '. BASEURL .'/middleware/checkout');
         exit;
     }
-   $no = 0;
 ?>
 
 <div class="container">
@@ -40,34 +39,25 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($data['riwayat'] as $value): ?>
+                <?php foreach ($data['riwayat'] as $riwayat): ?>
                     <tr>
-                        <td><?= $value['id_hasil']; ?> </td>
-                        <td><?= $value['nilai_akhir']; ?></td>
+                        <td><?= $riwayat['id_hasil']; ?> </td>
+                        <td><?= $riwayat['nilai_akhir']; ?></td>
     
                         <td>
-                            <?php if ( $value['id_solusi'] == $data['solusi'][0]['id_solusi'] ) : ?>
-                                <span class="badge bg-warning">
-                                    <?= $data['solusi'][0]['level_gejala']; ?>
-                                </span>
-    
-                            <?php elseif ( $value['id_solusi'] == $data['solusi'][1]['id_solusi'] ) : ?>
-                                <span class="badge" style="background-color: #ff8906;">
-                                    <?= $data['solusi'][1]['level_gejala']; ?>
-                                </span>
-    
-                            <?php else : ?>
-                                <span class="badge bg-danger">
-                                    <?= $data['solusi'][2]['level_gejala']; ?>
-                                </span>
-    
-                            <?php endif; ?>
+                            <?php foreach ( $data['solusi'] as $solusi ) : ?>
+                                <?php if ( $riwayat['id_solusi'] == $solusi['id_solusi'] ) : ?>
+                                    <span class="badge <?= $solusi['color']; ?>">
+                                        <?= $solusi['level_gejala']; ?>
+                                    </span>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </td>
     
-                        <td><?= $value['timestamp']; ?></td>
+                        <td><?= $riwayat['timestamp']; ?></td>
     
                         <td>
-                            <a href="<?= BASEURL; ?>/responden/detail/<?= $value['record']; ?>" class="btn btn-outline-primary btn-sm">Detail</a>
+                            <a href="<?= BASEURL; ?>/responden/detail/<?= $riwayat['record']; ?>" class="btn btn-outline-primary btn-sm">Detail</a>
                         </td>
                     </tr>
                 <?php endforeach?>

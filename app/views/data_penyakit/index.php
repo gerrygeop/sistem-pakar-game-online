@@ -15,6 +15,7 @@
     <div class="row">
         <div class="col-6">
             <?php Flasher::flash(); ?>
+            <?php Flasher::alert(); ?>
         </div>
     </div>
 

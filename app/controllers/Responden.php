@@ -32,7 +32,6 @@ class Responden extends Controller {
     $data['nilaiH'] = $this->model('RespondenModel')->hasilCF();
     $data['solusi'] = $this->model('DataPenyakitModel')->getAll();
     $data['mhs'] = $this->model('UserModel')->getUserByNIM($_SESSION['nim']);
-    // return var_dump($data['solusi']);
     $this->model('RespondenModel')->simpanHasil($data['nilaiH'], $data['solusi']);
 
     $this->view('templates/header', $data);
@@ -98,41 +97,5 @@ class Responden extends Controller {
     }
     
   }
-
-  //   public function delete($id)
-  //   {
-  //       if ($this->model('DataPenyakitModel')->hapusSolusi($id) > 0) {
-  //           Flasher::setFlash('Berhasil', 'Dihapus', 'success');
-  //           header('Location: ' . BASEURL . '/data_penyakit/index');
-  //           exit;
-  //       } else {
-  //           Flasher::setFlash('Gagal', 'Dihapus', 'danger');
-  //           header('Location: ' . BASEURL . '/data_penyakit/index');
-  //           exit;
-  //       }
-  //   }
-
-  // public function edit($id)
-  //   {
-  //       $data['judul'] = 'Data Penyakit';
-  //       $data['solusi'] = $this->model('DataPenyakitModel')->getID($id);
-
-  //       $this->view('templates/header', $data);
-  //       $this->view('data_penyakit/edit', $data);
-  //       $this->view('templates/footer');
-  //   }
-
-  //     public function update()
-  //   {
-  //       if ($this->model('DataPenyakitModel')->updateSolusi($_POST) > 0) {
-  //           Flasher::setFlash('Berhasil', 'Diedit', 'success');
-  //           header('Location: ' . BASEURL . '/data_penyakit/index');
-  //           exit;
-  //       } else {
-  //           Flasher::setFlash('Gagal', 'Diedit', 'danger');
-  //           header('Location: ' . BASEURL . '/data_penyakit/index');
-  //           exit;
-  //       }
-  //   }
 
 }

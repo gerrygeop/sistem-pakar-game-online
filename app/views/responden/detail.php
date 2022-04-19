@@ -34,56 +34,69 @@
                     <thead>
                         <tr>
                             <th scope="col">Kategori</th>
-                            <th scope="col">Interval</th>
                             <th scope="col">% Interval</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-warning">
-                            <td>Ringan</td>
-                            <td>0 - 33</td>
-                            <td>=< 33%</td>
-                        </tr>
-                        <tr class="bg-orange">
-                            <td>Sedang</td>
-                            <td>34 - 67</td>
-                            <td>34% - 67%</td>
-                        </tr>
-                        <tr class="bg-danger">
-                            <td>Berat</td>
-                            <td>68 - 100</td>
-                            <td>>= 68%</td>
-                        </tr>
+                        <?php foreach ($data['solusi'] as $solusi ) : ?>
+                            <tr class="<?= $solusi['color'] ?>">
+                                <td><?= $solusi['level_gejala'] ?></td>
+                                <td>
+                                    <?= $solusi['min'] ?>% - <?= $solusi['max'] ?>%
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
 
         <div class="col-12 col-lg-8 px-3 py-5 bg-white border rounded">
+
             <!-- Tingkat Kecanduan -->
             <div class="card text-center mb-5">
                 <div class="card-header">Tingkat Kecanduan</div>
 
-                <div class="card-body <?= $data['h']['class'] ?>">
-                    <h5 class="card-title">
-                        <?= $data['h']['level_gejala'] ?>
-                    </h5>
-                    <h5 class="card-title">
-                        <?= $data['nilaiH']['hasilBagiSeratus'] ?>
-                    </h5>
-                </div>
+                <?php foreach ($data['solusi'] as $solusi ) : ?>
+                    <?php 
+                        if ( 
+                            $data['nilaiH']['hasilBagiSeratus'] >= $solusi['min'] && 
+                            $data['nilaiH']['hasilBagiSeratus'] <= $solusi['max'] 
+                        ) : 
+                    ?>
+                        <div class="card-body text-white <?= $solusi['color'] ?>">
+                            <h5 class="card-title">
+                                <?= $solusi['level_gejala'] ?>
+                            </h5>
+
+                            <h5 class="card-title">
+                                <?= $data['nilaiH']['hasilBagiSeratus'] ?>
+                            </h5>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
 
             <!-- Solusi -->
             <div class="card text-center">
                 <div class="card-header">Solusi</div>
 
-                <div class="card-body <?= $data['h']['class'] ?>">
-                    <h5 class="card-title">
-                        <?= $data['h']['solusi'] ?>
-                    </h5>
-                </div>
+                <?php foreach ($data['solusi'] as $solusi ) : ?>
+                    <?php 
+                        if ( 
+                            $data['nilaiH']['hasilBagiSeratus'] >= $solusi['min'] && 
+                            $data['nilaiH']['hasilBagiSeratus'] <= $solusi['max']
+                        ) : 
+                    ?>
+                        <div class="card-body text-white <?= $solusi['color'] ?>">
+                            <h5 class="card-title">
+                                <?= $solusi['solusi'] ?>
+                            </h5>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
+
         </div>
     </div>
 
@@ -103,13 +116,11 @@
                     <tbody>
                         <?php foreach ( $data['riwayatResponden'] as $key => $value ) : ?>
                             <tr 
-                                <?php if ( $value['tingkatan'] == 1 ) : ?>
-                                        class="bg-warning"
-                                <?php elseif ( $value['tingkatan'] == 2) : ?>
-                                        class="bg-orange"
-                                <?php else : ?>
-                                        class="bg-danger"
-                                <?php endif; ?>
+                                <?php foreach ($data['solusi'] as $solusi) : ?>
+                                    <?php if ( $value['tingkatan'] == $solusi['id_solusi'] ) : ?>
+                                        class="<?= $solusi['color'] ?>"
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             >
                                 <td>
                                     <?= $value['gejala'] ?>
@@ -149,13 +160,19 @@
                     <tbody>
                         <?php foreach ( $data['nilaiH']['combin'] as $key => $combin ) : ?>
                             <tr>
-                                <?php if ( $key == 1 ) : ?>
-                                    <th class="bg-warning">Ringan</th>
-                                <?php elseif ( $key == 2 ) : ?>
-                                    <th style="background-color: #ff8906;">Sedang</th>
-                                <?php else : ?>
-                                    <th class="bg-danger">Berat</th>
-                                <?php endif; ?>
+                                <?php foreach ( $data['solusi'] as $solusi ) : ?>
+                                    <?php if ( $key == $solusi['id_solusi'] ) : ?>
+                                        <th
+                                            <?php if ($solusi['color'] == 'bg-orange') : ?>
+                                                style="background-color: #ff8906;"
+                                            <?php else : ?>
+                                                class="<?= $solusi['color'] ?>"
+                                            <?php endif; ?>
+                                        >
+                                            <?= $solusi['level_gejala'] ?>
+                                        </th>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
 
                                 <?php foreach ( $combin as $value_combin ) : ?>
                                     <td>
@@ -169,8 +186,21 @@
                             <th scope="row">Hasil</th>
                             <th 
                                 colspan="5"
-                                class="<?= $data['h']['class'] ?>"
-                                <?= $data['h']['style'] ?>
+                                <?php foreach ( $data['solusi'] as $solusi ) : ?>
+                                    <?php 
+                                        if ( 
+                                            $data['nilaiH']['hasilBagiSeratus'] >= $solusi['min'] && 
+                                            $data['nilaiH']['hasilBagiSeratus'] <= $solusi['max']
+                                        ) : 
+                                    ?>
+                                        <?php if ($solusi['color'] == 'bg-orange') : ?>
+                                            style="background-color: #ff8906; color: #fff;"
+                                        <?php else : ?>
+                                            class="text-white <?= $solusi['color'] ?>"
+                                        <?php endif; ?>
+
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             >
                                 <p class="text-center pt-3">
                                     <?= $data['nilaiH']['hasilBagiSeratus'] ?>

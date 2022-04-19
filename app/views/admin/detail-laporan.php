@@ -31,27 +31,27 @@
                 <h5 class="px-2 pt-2 text-decoration-underline">Biodata</h5>
                 <table class="table mb-0">
                     <tr>
-                        <th>NIM</th>
+                        <th class="fs-6 fw-bolder">NIM</th>
                         <td><?= $data['mhs']['nim'] ?></td>
                     </tr>
                     <tr>
-                        <th>Nama</th>
+                        <th class="fs-6 fw-bolder">Nama</th>
                         <td><?= $data['mhs']['nama'] ?></td>
                     </tr>
                     <tr>
-                        <th>Fakultas</th>
+                        <th class="fs-6 fw-bolder">Fakultas</th>
                         <td><?= $data['mhs']['fakultas'] ?></td>
                     </tr>
                     <tr>
-                        <th>Angkatan</th>
+                        <th class="fs-6 fw-bolder">Angkatan</th>
                         <td><?= $data['mhs']['angkatan'] ?></td>
                     </tr>
                     <tr>
-                        <th>Jenis Kelamin</th>
+                        <th class="fs-6 fw-bolder">Jenis Kelamin</th>
                         <td><?= $data['mhs']['jk'] ?></td>
                     </tr>
                     <tr>
-                        <th>Umur</th>
+                        <th class="fs-6 fw-bolder">Umur</th>
                         <td><?= $data['mhs']['umur'] ?></td>
                     </tr>
                 </table>
@@ -64,26 +64,18 @@
                     <thead>
                         <tr>
                             <th scope="col">Kategori</th>
-                            <th scope="col">Interval</th>
                             <th scope="col">% Interval</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-warning">
-                            <td>Ringan</td>
-                            <td>0 - 33</td>
-                            <td>=< 33%</td>
-                        </tr>
-                        <tr class="bg-orange">
-                            <td>Sedang</td>
-                            <td>34 - 67</td>
-                            <td>34% - 67%</td>
-                        </tr>
-                        <tr class="bg-danger">
-                            <td>Berat</td>
-                            <td>68 - 100</td>
-                            <td>>= 68%</td>
-                        </tr>
+                        <?php foreach ($data['solusi'] as $solusi ) : ?>
+                            <tr class="<?= $solusi['color'] ?>">
+                                <td><?= $solusi['level_gejala'] ?></td>
+                                <td>
+                                    <?= $solusi['min'] ?>% - <?= $solusi['max'] ?>%
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -92,72 +84,53 @@
         <!-- Tabel Hasil dan Solusi -->
         <div class="col-12 col-lg-8 px-2 py-3 ms-auto bg-white border rounded">
             <div class="d-flex flex-column justify-content-around h-100">
+
                 <div class="card text-center mb-5">
                     <div class="card-header">
                         Tingkat Kecanduan
                     </div>
     
-                    <?php if ( $data['laporan']['nilai_akhir'] <= 33.9 ) : ?>
-                        <div class="card-body bg-warning">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][0]['level_gejala'] ?>
-                            </h5>
-                            <h5 class="card-title">
-                                <?= $data['laporan']['nilai_akhir'] ?>
-                            </h5>
-                        </div>
+                    <?php foreach ($data['solusi'] as $solusi ) : ?>
+                        <?php 
+                            if ( 
+                                $data['laporan']['nilai_akhir'] >= $solusi['min'] && 
+                                $data['laporan']['nilai_akhir'] <= $solusi['max'] 
+                            ) : 
+                        ?>
+                            <div class="card-body text-white <?= $solusi['color'] ?>">
+                                <h5 class="card-title">
+                                    <?= $solusi['level_gejala'] ?>
+                                </h5>
 
-                    <?php elseif ( $data['laporan']['nilai_akhir'] >= 34 && $data['laporan']['nilai_akhir'] <= 68) : ?>
-                        <div class="card-body text-white" style="background-color: #ff8906;">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][1]['level_gejala'] ?>
-                            </h5>
-                            <h5 class="card-title">
-                                <?= $data['laporan']['nilai_akhir'] ?>
-                            </h5>
-                        </div>
-
-                    <?php else : ?>
-                        <div class="card-body bg-danger text-white">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][2]['level_gejala'] ?>
-                            </h5>
-                            <h5 class="card-title">
-                                <?= $data['laporan']['nilai_akhir'] ?>
-                            </h5>
-                        </div>
-
-                    <?php endif; ?>
+                                <h5 class="card-title">
+                                    <?= $data['laporan']['nilai_akhir'] ?>
+                                </h5>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
     
                 <div class="card text-center">
                     <div class="card-header">
                         Solusi
                     </div>
-    
-                    <?php if ( $data['laporan']['nilai_akhir'] <= 33.9 ) : ?>
-                        <div class="card-body bg-warning">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][0]['solusi'] ?>
-                            </h5>
-                        </div>
-    
-                    <?php elseif ( $data['laporan']['nilai_akhir'] >= 34 && $data['laporan']['nilai_akhir'] <= 68) : ?>
-                        <div class="card-body text-white" style="background-color: #ff8906;">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][1]['solusi'] ?>
-                            </h5>
-                        </div>
-    
-                    <?php else : ?>
-                        <div class="card-body bg-danger text-white">
-                            <h5 class="card-title">
-                                <?= $data['solusi'][2]['solusi'] ?>
-                            </h5>
-                        </div>
-    
-                    <?php endif; ?>
+
+                    <?php foreach ($data['solusi'] as $solusi ) : ?>
+                        <?php 
+                            if ( 
+                                $data['laporan']['nilai_akhir'] >= $solusi['min'] && 
+                                $data['laporan']['nilai_akhir'] <= $solusi['max']
+                            ) : 
+                        ?>
+                            <div class="card-body text-white <?= $solusi['color'] ?>">
+                                <h5 class="card-title">
+                                    <?= $solusi['solusi'] ?>
+                                </h5>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
+
             </div>
         </div>
     </div>
@@ -178,15 +151,11 @@
                     <tbody>
                         <?php foreach ( $data['riwayatResponden'] as $key => $value ) : ?>
                             <tr 
-                                <?php 
-                                    if ( $value['tingkatan'] == 1 ) {
-                                        echo 'class="bg-warning"';
-                                    } elseif ( $value['tingkatan'] == 2) {
-                                        echo 'class="bg-orange"';
-                                    } else {
-                                        echo 'class="bg-danger"';
-                                    }
-                                ?>
+                                <?php foreach ($data['solusi'] as $solusi) : ?>
+                                    <?php if ( $value['tingkatan'] == $solusi['id_solusi'] ) : ?>
+                                        class="<?= $solusi['color'] ?>"
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             >
                                 <td>
                                     <?= $value['gejala'] ?>
@@ -226,13 +195,19 @@
                     <tbody>
                         <?php foreach ( $data['nilaiH']['combin'] as $key => $combin ) : ?>
                             <tr>
-                                <?php if ( $key == 1 ) : ?>
-                                    <th class="bg-warning">Ringan</th>
-                                <?php elseif ( $key == 2 ) : ?>
-                                    <th style="background-color: #ff8906;">Sedang</th>
-                                <?php else : ?>
-                                    <th class="bg-danger">Berat</th>
-                                <?php endif; ?>
+                                <?php foreach ( $data['solusi'] as $solusi ) : ?>
+                                    <?php if ( $key == $solusi['id_solusi'] ) : ?>
+                                        <th
+                                            <?php if ($solusi['color'] == 'bg-orange') : ?>
+                                                style="background-color: #ff8906;"
+                                            <?php else : ?>
+                                                class="<?= $solusi['color'] ?>"
+                                            <?php endif; ?>
+                                        >
+                                            <?= $solusi['level_gejala'] ?>
+                                        </th>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
 
                                 <?php foreach ( $combin as $value_combin ) : ?>
                                     <td>
@@ -244,22 +219,28 @@
 
                         <tr class="align-middle">
                             <th scope="row">Hasil</th>
-                            <th 
+                            <td 
                                 colspan="5"
-                                <?php 
-                                    if ( $data['nilaiH']['hasilBagiSeratus'] <= 33.9 ) {
-                                        echo 'class="bg-warning"';
-                                    } elseif ( $data['nilaiH']['hasilBagiSeratus'] >= 34 && $data['nilaiH']['hasilBagiSeratus'] <= 68) {
-                                        echo 'class="text-white" style="background-color: #ff8906;"';
-                                    } else {
-                                        echo 'class="text-white bg-danger"';
-                                    }
-                                ?>
+                                <?php foreach ( $data['solusi'] as $solusi ) : ?>
+                                    <?php 
+                                        if ( 
+                                            $data['nilaiH']['hasilBagiSeratus'] >= $solusi['min'] && 
+                                            $data['nilaiH']['hasilBagiSeratus'] <= $solusi['max']
+                                        ) : 
+                                    ?>
+                                        <?php if ($solusi['color'] == 'bg-orange') : ?>
+                                            style="background-color: #ff8906; color: #fff;"
+                                        <?php else : ?>
+                                            class="text-white <?= $solusi['color'] ?>"
+                                        <?php endif; ?>
+
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             >
                                 <p class="text-center pt-3">
                                     <?= $data['nilaiH']['hasilBagiSeratus'] ?>
                                 </p>
-                            </th>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

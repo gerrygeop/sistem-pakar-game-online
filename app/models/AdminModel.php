@@ -43,7 +43,6 @@ class AdminModel {
     public function detailRiwayatPerhitungan($nim, $record)
     {
         $solusi = $this->getSolusi();
-        $x = 1;
         foreach ($solusi as $key_solusi => $value_solusi) {
 
             $nilai_H = $this->getNilaiHByTingkatanAndRecord($value_solusi['id_solusi'], $nim, $record);
@@ -53,13 +52,12 @@ class AdminModel {
     
                 } else {
                     $hcf = $hcf + $value['H'] * (1 - $hcf);
-                    $combin[$x][] = $hcf;
+                    $combin[$value_solusi['id_solusi']][] = $hcf;
                 }
             }
             
             $hasilAkhirSolusi[$key_solusi] = $hcf;
             unset($hcf);
-            $x += 1;
         }
 
         foreach ($hasilAkhirSolusi as $index => $nilaiAkhir) {

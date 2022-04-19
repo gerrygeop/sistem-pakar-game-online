@@ -60,22 +60,13 @@
                         <td><?= $value['nilai_akhir']; ?></td>
     
                         <td>
-                            <?php if ( $value['id_solusi'] == $data['solusi'][0]['id_solusi'] ) : ?>
-                                <span class="badge bg-warning">
-                                    <?= $data['solusi'][0]['level_gejala']; ?>
-                                </span>
-    
-                            <?php elseif ( $value['id_solusi'] == $data['solusi'][1]['id_solusi'] ) : ?>
-                                <span class="badge" style="background-color: #ff8906;">
-                                    <?= $data['solusi'][1]['level_gejala']; ?>
-                                </span>
-    
-                            <?php else : ?>
-                                <span class="badge bg-danger">
-                                    <?= $data['solusi'][2]['level_gejala']; ?>
-                                </span>
-    
-                            <?php endif; ?>
+                            <?php foreach ( $data['solusi'] as $solusi ) : ?>
+                                <?php if ( $value['id_solusi'] == $solusi['id_solusi'] ) : ?>
+                                    <span class="badge <?= $solusi['color']; ?>">
+                                        <?= $solusi['level_gejala']; ?>
+                                    </span>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </td>
     
                         <td><?= $value['timestamp']; ?></td>
@@ -102,7 +93,7 @@
                             </div>
                         </td>
                     </tr>
-                <?php endforeach?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

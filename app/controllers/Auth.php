@@ -26,6 +26,7 @@ class Auth extends Controller {
         if (empty($_POST['nim']) || empty($_POST['password'])) {
             Flasher::setAlert('NIM dan Password tidak boleh kosong!', 'danger');
             header('Location: ' . BASEURL . '/auth');
+            exit;
 
         } else {
             $loginUser = $this->model('UserModel')->loginUser($_POST['nim'], $_POST['password']);
@@ -33,6 +34,7 @@ class Auth extends Controller {
             if (!$loginUser) {
                 Flasher::setAlert('NIM atau Password Salah!', 'danger');
                 header('Location: ' . BASEURL . '/auth');
+                exit;
             } else {
                 $this->createUserSession($loginUser);
             }
@@ -44,6 +46,7 @@ class Auth extends Controller {
         if (empty($_POST['nim']) || empty($_POST['password'])) {
             Flasher::setAlert('NIM dan Password tidak boleh kosong!', 'danger');
             header('Location: ' . BASEURL . '/auth/adminLogin');
+            exit;
 
         } else {
             $loginUser = $this->model('UserModel')->loginAdmin($_POST['nim'], $_POST['password']);
@@ -51,6 +54,7 @@ class Auth extends Controller {
             if (!$loginUser) {
                 Flasher::setAlert('NIM atau Password Salah!', 'danger');
                 header('Location: ' . BASEURL . '/auth/adminLogin');
+                exit;
             } else {
                 $this->createUserSession($loginUser);
             }
@@ -62,6 +66,7 @@ class Auth extends Controller {
         $_SESSION['nim'] = $user['nim'];
         $_SESSION['level'] = $user['level'];
         header('Location: '. BASEURL .'/home');
+        exit;
     }
 
     public function register()
@@ -85,28 +90,32 @@ class Auth extends Controller {
             empty($_POST['password'])
         ) {
             Flasher::setAlert('Pastikan seluruh data sudah terisi dengan benar!', 'danger');
+            header('Location: ' . BASEURL . '/auth/register');
+            exit;
         }
 
         if ( $this->model('UserModel')->findUserByNIM($_POST['nim']) ) {
-            header('Location: ' . BASEURL . '/auth/register');
             Flasher::setAlert('NIM sudah terdaftar!', 'danger');
+            header('Location: ' . BASEURL . '/auth/register');
+            exit;
         }
 
         // $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
         if ( $this->model('UserModel')->register($_POST) > 0 ) {
+            Flasher::setAlert('Register Berhasil Silahkan Login', 'success');
             header('Location: ' . BASEURL . '/auth');
             exit;
         } else {
-            header('Location: ' . BASEURL . '/auth');
-            die('Kayaknye password salah');
+            Flasher::setAlert('Register Gagal', 'danger');
+            header('Location: ' . BASEURL . '/auth/register');
+            exit;
         }
     }
 
     public function logout()
     {
-        $_SESSION['nim'] = $user['nim'];
-        $_SESSION['level'] = $user['level'];
         session_destroy($_SESSION);
         header('Location: '. BASEURL .'/');
+        exit;
     }
 }

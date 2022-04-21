@@ -36,9 +36,12 @@ class UserModel {
         $this->db->bind('nim', $nim);
 
         $row = $this->db->single();
-        $hashPassword = $row['password'];
+        
+        if ($row == NULL) {
+            return 0;
+        }
 
-        if ($password == $hashPassword) {
+        if ($password == $row['password']) {
             return $row;
         } else {
             return false;

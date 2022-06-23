@@ -114,6 +114,8 @@ class Auth extends Controller {
 
     public function logout()
     {
+        $_SESSION['nim'] = $user['nim'];
+        $_SESSION['level'] = $user['level'];
         session_destroy($_SESSION);
         header('Location: '. BASEURL .'/');
         exit;

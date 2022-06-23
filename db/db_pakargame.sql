@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 19, 2022 at 09:50 PM
--- Server version: 5.7.24
--- PHP Version: 7.4.7
+-- Waktu pembuatan: 23 Bulan Mei 2022 pada 05.52
+-- Versi server: 5.7.24
+-- Versi PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_gejala`
+-- Struktur dari tabel `tbl_gejala`
 --
 
 CREATE TABLE `tbl_gejala` (
@@ -37,7 +37,7 @@ CREATE TABLE `tbl_gejala` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_gejala`
+-- Dumping data untuk tabel `tbl_gejala`
 --
 
 INSERT INTO `tbl_gejala` (`id_gejala`, `gejala`, `tingkatan`, `MB`, `MD`, `CF`) VALUES
@@ -62,7 +62,7 @@ INSERT INTO `tbl_gejala` (`id_gejala`, `gejala`, `tingkatan`, `MB`, `MD`, `CF`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_hasil`
+-- Struktur dari tabel `tbl_hasil`
 --
 
 CREATE TABLE `tbl_hasil` (
@@ -75,7 +75,7 @@ CREATE TABLE `tbl_hasil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_hasil`
+-- Dumping data untuk tabel `tbl_hasil`
 --
 
 INSERT INTO `tbl_hasil` (`id_hasil`, `nim`, `nilai_akhir`, `id_solusi`, `timestamp`, `record`) VALUES
@@ -88,7 +88,7 @@ INSERT INTO `tbl_hasil` (`id_hasil`, `nim`, `nilai_akhir`, `id_solusi`, `timesta
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_responden`
+-- Struktur dari tabel `tbl_responden`
 --
 
 CREATE TABLE `tbl_responden` (
@@ -102,7 +102,7 @@ CREATE TABLE `tbl_responden` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_responden`
+-- Dumping data untuk tabel `tbl_responden`
 --
 
 INSERT INTO `tbl_responden` (`id_responden`, `id_gejala`, `nim`, `r_cf`, `H`, `timestamp`, `record`) VALUES
@@ -193,7 +193,7 @@ INSERT INTO `tbl_responden` (`id_responden`, `id_gejala`, `nim`, `r_cf`, `H`, `t
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_solusi`
+-- Struktur dari tabel `tbl_solusi`
 --
 
 CREATE TABLE `tbl_solusi` (
@@ -206,7 +206,7 @@ CREATE TABLE `tbl_solusi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_solusi`
+-- Dumping data untuk tabel `tbl_solusi`
 --
 
 INSERT INTO `tbl_solusi` (`id_solusi`, `level_gejala`, `solusi`, `min`, `max`, `color`) VALUES
@@ -217,7 +217,7 @@ INSERT INTO `tbl_solusi` (`id_solusi`, `level_gejala`, `solusi`, `min`, `max`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user`
+-- Struktur dari tabel `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -232,7 +232,7 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_user`
+-- Dumping data untuk tabel `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`nim`, `nama`, `fakultas`, `angkatan`, `jk`, `umur`, `password`, `level`) VALUES
@@ -249,47 +249,47 @@ INSERT INTO `tbl_user` (`nim`, `nama`, `fakultas`, `angkatan`, `jk`, `umur`, `pa
 --
 
 --
--- Indexes for table `tbl_gejala`
+-- Indeks untuk tabel `tbl_gejala`
 --
 ALTER TABLE `tbl_gejala`
   ADD PRIMARY KEY (`id_gejala`);
 
 --
--- Indexes for table `tbl_hasil`
+-- Indeks untuk tabel `tbl_hasil`
 --
 ALTER TABLE `tbl_hasil`
   ADD PRIMARY KEY (`id_hasil`);
 
 --
--- Indexes for table `tbl_responden`
+-- Indeks untuk tabel `tbl_responden`
 --
 ALTER TABLE `tbl_responden`
   ADD PRIMARY KEY (`id_responden`);
 
 --
--- Indexes for table `tbl_solusi`
+-- Indeks untuk tabel `tbl_solusi`
 --
 ALTER TABLE `tbl_solusi`
   ADD PRIMARY KEY (`id_solusi`);
 
 --
--- Indexes for table `tbl_user`
+-- Indeks untuk tabel `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`nim`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tbl_responden`
+-- AUTO_INCREMENT untuk tabel `tbl_responden`
 --
 ALTER TABLE `tbl_responden`
   MODIFY `id_responden` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=775;
 
 --
--- AUTO_INCREMENT for table `tbl_solusi`
+-- AUTO_INCREMENT untuk tabel `tbl_solusi`
 --
 ALTER TABLE `tbl_solusi`
   MODIFY `id_solusi` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;

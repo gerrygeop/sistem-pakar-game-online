@@ -3,13 +3,13 @@
 /*
  * @Laragon
  */
-define('BASEURL', 'http://sistem-pakar-rizki-16.test');
+define('BASEURL', 'http://sistem-pakar-rizki.test');
 
 
 /*
  * @XAMPP
  */
-// define('BASEURL', 'http://localhost/sistem-pakar-rizky-16/public');
+// define('BASEURL', 'http://localhost/sistem-pakar-rizki/public');
 
 
 /*

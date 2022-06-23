@@ -4,4 +4,4 @@
 
 Setting Root url & DB : `file app/config/config`
 
-> Rezky 16
+> Rizky

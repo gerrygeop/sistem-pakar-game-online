@@ -1,6 +1,7 @@
 <?php
 
-class Auth extends Controller {
+class Auth extends Controller
+{
 
     public function index()
     {
@@ -27,7 +28,6 @@ class Auth extends Controller {
             Flasher::setAlert('NIM dan Password tidak boleh kosong!', 'danger');
             header('Location: ' . BASEURL . '/auth');
             exit;
-
         } else {
             $loginUser = $this->model('UserModel')->loginUser($_POST['nim'], $_POST['password']);
 
@@ -47,7 +47,6 @@ class Auth extends Controller {
             Flasher::setAlert('NIM dan Password tidak boleh kosong!', 'danger');
             header('Location: ' . BASEURL . '/auth/adminLogin');
             exit;
-
         } else {
             $loginUser = $this->model('UserModel')->loginAdmin($_POST['nim'], $_POST['password']);
 
@@ -65,7 +64,7 @@ class Auth extends Controller {
     {
         $_SESSION['nim'] = $user['nim'];
         $_SESSION['level'] = $user['level'];
-        header('Location: '. BASEURL .'/home');
+        header('Location: ' . BASEURL . '/home');
         exit;
     }
 
@@ -81,7 +80,7 @@ class Auth extends Controller {
     public function registerStore()
     {
         if (
-            empty($_POST['nim']) || 
+            empty($_POST['nim']) ||
             empty($_POST['nama']) ||
             empty($_POST['fakultas']) ||
             empty($_POST['angkatan']) ||
@@ -94,14 +93,14 @@ class Auth extends Controller {
             exit;
         }
 
-        if ( $this->model('UserModel')->findUserByNIM($_POST['nim']) ) {
+        if ($this->model('UserModel')->findUserByNIM($_POST['nim'])) {
             Flasher::setAlert('NIM sudah terdaftar!', 'danger');
             header('Location: ' . BASEURL . '/auth/register');
             exit;
         }
 
         // $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        if ( $this->model('UserModel')->register($_POST) > 0 ) {
+        if ($this->model('UserModel')->register($_POST) > 0) {
             Flasher::setAlert('Register Berhasil Silahkan Login', 'success');
             header('Location: ' . BASEURL . '/auth');
             exit;
@@ -114,10 +113,8 @@ class Auth extends Controller {
 
     public function logout()
     {
-        $_SESSION['nim'] = $user['nim'];
-        $_SESSION['level'] = $user['level'];
-        session_destroy($_SESSION);
-        header('Location: '. BASEURL .'/');
+        session_destroy();
+        header('Location: ' . BASEURL . '/');
         exit;
     }
 }

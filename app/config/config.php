@@ -3,7 +3,7 @@
 /*
  * @Laragon
  */
-define('BASEURL', 'http://sistem-pakar-rizki.test');
+define('BASEURL', 'http://sistem-pakar-game-online.test');
 
 
 /*
